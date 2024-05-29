@@ -37,8 +37,8 @@ module.exports = () => {
         name: 'text-editor',
         short_name: 'text-editor',
         description: 'Never forget your contacts!',
-        background_color: '#225ca3',
-        theme_color: '#225ca3',
+        background_color: '#272822',
+        theme_color: '#272822',
         start_url: './',
         publicPath: './',
         icons: [
