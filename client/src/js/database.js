@@ -1,23 +1,23 @@
 import { openDB } from 'idb';
 
 const initdb = async () =>
-  openDB('text-editor', 1, {
+  openDB('jate', 1, {
     upgrade(db) {
-      if (db.objectStoreNames.contains('text-editor')) {
-        console.log('text-editor database already exists');
+      if (db.objectStoreNames.contains('jate')) {
+        console.log('jate database already exists');
         return;
       }
-      db.createObjectStore('text-editor', { keyPath: 'id', autoIncrement: true });
+      db.createObjectStore('jate', { keyPath: 'id', autoIncrement: true });
       console.log('jate database created');
     },
   });
 
 //  a method that accepts some content and adds it to the database
 export const putDb = async (data) => {
-  const textEditorDb = await openDB('text-editor', 1);
-  const tx = textEditorDb.transaction('text-editor', 'readwrite');
-  const store = tx.objectStore('text-editor');
-  const request = store.add({data: data});
+  const jateDb = await openDB('jate', 1);
+  const tx = jateDb.transaction('jate', 'readwrite');
+  const store = tx.objectStore('jate');
+  const request = store.put({ id: 1, value: data });
   const result = await request;
   return result
 };
@@ -25,13 +25,13 @@ export const putDb = async (data) => {
 // a method that gets all the content from the database
 export const getDb = async () => {
   console.log('GET all from the database');
-  const textEditorDb = await openDB('text-editor', 1);
-  const tx = textEditorDb.transaction('text-editor', 'readonly');
-  const store = tx.objectStore('text-editor');
+  const jateDb = await openDB('jate', 1);
+  const tx = jateDb.transaction('jate', 'readonly');
+  const store = tx.objectStore('jate');
   const request = store.get(1);
   const result = await request;
   console.log('result.value', result);
-  return result.value;
+  return result;
 };
 
 initdb();
